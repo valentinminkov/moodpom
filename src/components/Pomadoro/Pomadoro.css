@@ -1,0 +1,177 @@
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffa07a,
+    #ffb347,
+    #ffcc33,
+    #ffdb58,
+    #ffebcd
+  );
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+}
+
+h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+p {
+  font-size: 96px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+button {
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.duration-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.duration-label {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.duration-value {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.duration-value button {
+  font-size: 24px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.duration-value button:hover {
+  background-color: #555;
+}
+
+.duration-value div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin: 5px;
+  color: #fff;
+  width: 80px;
+}
+
+.duration-value div span {
+  margin: 0 10px;
+}
+
+input[type="number"] {
+  display: none;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 72px;
+  }
+  button {
+    font-size: 20px;
+    padding: 8px 16px;
+    margin: 5px;
+  }
+  .duration-label {
+    font-size: 20px;
+    margin: 5px;
+  }
+  .duration-value button {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 5px;
+  }
+  .duration-value div {
+    font-size: 20px;
+    margin: 5px;
+    width: 60px;
+  }
+  .duration-value div span {
+    margin: 0 5px;
+  }
+}
+
+/* Media queries for even smaller screens */
+@media (max-width: 576px) {
+  h1 {
+    font-size: 36px;
+  }
+  p {
+    font-size: 56px;
+  }
+  button {
+    font-size: 18px;
+    padding: 8px 12px;
+    margin: 5px;
+  }
+  .duration-label {
+    font-size: 18px;
+    margin: 5px;
+    margin: 5px;
+    }
+    .duration-value button {
+    font-size: 18px;
+    padding: 5px 8px;
+    margin: 5px;
+    }
+    .duration-value div {
+    font-size: 18px;
+    margin: 5px;
+    width: 50px;
+    }
+    .duration-value div span {
+    margin: 0 5px;
+    }
+    }
+    
+
+    
+    
