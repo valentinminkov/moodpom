@@ -23,29 +23,26 @@ const Pomodoro = () => {
     setIsRunning(true);
   };
 
-  // Define a function that updates the timer's duration based on whether it's a work or break period
-  const onSetTime = useCallback(
-    (newDuration = -1) => {
-      const MINUTE = 60; // Define a constant for 1 minute
+  const onSetTime = useCallback((newDuration) => {
+    const MINUTE = 60; // Define a constant for 1 minute
 
-      // If "newDuration" is greater than 0, set the timer's duration to that value in minutes
-      if (newDuration > 0) {
-        setTime(newDuration * MINUTE);
-      }
-      // Otherwise, if "newDuration" is not provided or is less than or equal to 0,
-      // set the timer's duration based on whether it's a work or break period
-      else {
-        setTime(isBreakPeriod ? breakDuration * MINUTE : workDuration * MINUTE);
-      }
-    },
-    [isBreakPeriod, breakDuration, workDuration]
-  );
+    if (newDuration > 0) {
+      setTime(newDuration * MINUTE);
+    }
+  }, []);
 
   // Stop the timer and reset the time
   const resetTimer = () => {
     setIsRunning(false);
     onSetTime(isBreakPeriod ? breakDuration : workDuration);
   };
+
+  const endCycle = useCallback(() => {
+    const newDuration = isBreakPeriod ? workDuration : breakDuration;
+    setIsRunning(false);
+    setIsBreakPeriod(!isBreakPeriod);
+    onSetTime(newDuration);
+  }, [isBreakPeriod, workDuration, breakDuration, onSetTime]);
 
   // Update the time every second
   useEffect(() => {
@@ -55,12 +52,18 @@ const Pomodoro = () => {
         setTime(time - 1);
       }, 1000);
     } else if (isRunning || time === 0) {
-      setIsRunning(false);
-      setIsBreakPeriod(!isBreakPeriod);
-      onSetTime();
+      endCycle();
     }
     return () => clearTimeout(timer);
-  }, [isRunning, time, isBreakPeriod, breakDuration, workDuration, onSetTime]);
+  }, [
+    isRunning,
+    time,
+    isBreakPeriod,
+    breakDuration,
+    workDuration,
+    onSetTime,
+    endCycle,
+  ]);
 
   // Format the time as a string
   const formatTime = (time) => {
@@ -104,10 +107,12 @@ const Pomodoro = () => {
       </h1>
       <p className="pomadoro-time">{formatTime(time)}</p>
       <div className="button-container">
-        <div className="button-container-row">
+        <div className="button-group">
           <Button onClick={startTimer} content="Start" />
           <Button onClick={resetTimer} content="Reset" />
-          <EndFlagButton onClick={resetTimer} />
+        </div>
+        <div className="button-group">
+          <EndFlagButton onClick={endCycle} />
         </div>
       </div>
       <div className="duration-input">
