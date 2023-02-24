@@ -1,47 +1,32 @@
 .pomodoro {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
+  align-items: center;
+  height: 100%;
+  width: 100%;
   background-image: linear-gradient(
     to right bottom,
-    #ffa07a,
-    #ffb347,
-    #ffcc33,
-    #ffdb58,
-    #ffebcd
+    #f3c3a0,
+    #f4a582,
+    #f78164,
+    #f5664e,
+    #f94f3a
   );
-  font-family: "Montserrat", sans-serif;
   color: #fff;
+  width: fit-content;
+  border-right: 2px solid #2e2e2e;
 }
-
-h1 {
+.pomadoro-header {
   font-size: 64px;
-  margin-bottom: 20px;
+  margin: 0;
   text-align: center;
 }
 
-p {
+.pomadoro-time {
   font-size: 96px;
   margin-bottom: 30px;
   text-align: center;
-}
-
-button {
-  font-size: 24px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
-  color: #fff;
-  background-color: #333;
-  transition: background-color 0.2s ease-in-out;
-}
-
-button:hover {
-  background-color: #555;
 }
 
 .duration-input {
@@ -55,7 +40,6 @@ button:hover {
 .duration-label {
   font-size: 24px;
   margin-right: 10px;
-  color: #fff;
 }
 
 .duration-value {
@@ -72,13 +56,7 @@ button:hover {
   border: none;
   margin: 5px;
   cursor: pointer;
-  color: #fff;
-  background-color: #333;
   transition: background-color 0.2s ease-in-out;
-}
-
-.duration-value button:hover {
-  background-color: #555;
 }
 
 .duration-value div {
@@ -88,7 +66,6 @@ button:hover {
   align-items: center;
   font-size: 24px;
   margin: 5px;
-  color: #fff;
   width: 80px;
 }
 
@@ -101,24 +78,21 @@ input[type="number"] {
 }
 
 .button-container {
+}
+
+.button-container-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-
 /* Media queries for smaller screens */
 @media (max-width: 768px) {
-  h1 {
+  .pomadoro-header {
     font-size: 48px;
   }
-  p {
+  .pomadoro-time {
     font-size: 72px;
-  }
-  button {
-    font-size: 20px;
-    padding: 8px 16px;
-    margin: 5px;
   }
   .duration-label {
     font-size: 20px;
@@ -141,37 +115,28 @@ input[type="number"] {
 
 /* Media queries for even smaller screens */
 @media (max-width: 576px) {
-  h1 {
+  .pomadoro-header {
     font-size: 36px;
   }
-  p {
+  .pomadoro-time {
     font-size: 56px;
-  }
-  button {
-    font-size: 18px;
-    padding: 8px 12px;
-    margin: 5px;
   }
   .duration-label {
     font-size: 18px;
     margin: 5px;
     margin: 5px;
-    }
-    .duration-value button {
+  }
+  .duration-value button {
     font-size: 18px;
     padding: 5px 8px;
     margin: 5px;
-    }
-    .duration-value div {
+  }
+  .duration-value div {
     font-size: 18px;
     margin: 5px;
     width: 50px;
-    }
-    .duration-value div span {
+  }
+  .duration-value div span {
     margin: 0 5px;
-    }
-    }
-    
-
-    
-    
+  }
+}

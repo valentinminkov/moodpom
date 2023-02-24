@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./Pomadoro.css";
+import "./Pomodoro.css";
+import Button from "../Button/Button";
 
 const Pomodoro = () => {
   const MIN_WORK_DURATION = 1;
   const MAX_WORK_DURATION = 90;
+  const BREAK_LABEL = "Break";
+  const WORK_LABEL = "Work";
 
   // Set the duration of the work and break periods in minutes
   const [workDuration, setWorkDuration] = useState(25);
@@ -19,15 +22,29 @@ const Pomodoro = () => {
     setIsRunning(true);
   };
 
+  // Define a function that updates the timer's duration based on whether it's a work or break period
+  const onSetTime = useCallback(
+    (newDuration = -1) => {
+      const MINUTE = 60; // Define a constant for 1 minute
+
+      // If "newDuration" is greater than 0, set the timer's duration to that value in minutes
+      if (newDuration > 0) {
+        setTime(newDuration * MINUTE);
+      }
+      // Otherwise, if "newDuration" is not provided or is less than or equal to 0,
+      // set the timer's duration based on whether it's a work or break period
+      else {
+        setTime(isBreakPeriod ? breakDuration * MINUTE : workDuration * MINUTE);
+      }
+    },
+    [isBreakPeriod, breakDuration, workDuration]
+  );
+
   // Stop the timer and reset the time
   const resetTimer = () => {
     setIsRunning(false);
-    setTime(isBreakPeriod ? breakDuration * 60 : workDuration * 60);
+    onSetTime(isBreakPeriod ? breakDuration : workDuration);
   };
-
-  const onTimeSet = useCallback(() => {
-    setTime(isBreakPeriod ? breakDuration * 60 : workDuration * 60);
-  }, [isBreakPeriod, breakDuration, workDuration]);
 
   // Update the time every second
   useEffect(() => {
@@ -39,10 +56,10 @@ const Pomodoro = () => {
     } else if (isRunning || time === 0) {
       setIsRunning(false);
       setIsBreakPeriod(!isBreakPeriod);
-      onTimeSet();
+      onSetTime();
     }
     return () => clearTimeout(timer);
-  }, [isRunning, time, isBreakPeriod, breakDuration, workDuration, onTimeSet]);
+  }, [isRunning, time, isBreakPeriod, breakDuration, workDuration, onSetTime]);
 
   // Format the time as a string
   const formatTime = (time) => {
@@ -63,7 +80,7 @@ const Pomodoro = () => {
       ? setBreakDuration(newDuration)
       : setWorkDuration(newDuration);
 
-    setTime(newDuration * 60);
+    onSetTime(newDuration);
   };
 
   // Increase work duration by 1 minute
@@ -76,24 +93,32 @@ const Pomodoro = () => {
       ? setBreakDuration(newDuration)
       : setWorkDuration(newDuration);
 
-    setTime(newDuration * 60);
+    onSetTime(newDuration);
   };
 
   return (
     <div className="pomodoro">
-      <h1>{isBreakPeriod ? "Break" : "Work"}</h1>
-      <p>{formatTime(time)}</p>
+      <h1 className="pomadoro-header">
+        {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
+      </h1>
+      <p className="pomadoro-time">{formatTime(time)}</p>
       <div className="button-container">
-        <button onClick={startTimer}>Start</button>
-        <button onClick={resetTimer}>Reset</button>
+        <div className="button-container-row">
+          <Button onClick={startTimer} text="Start" />
+          <Button onClick={resetTimer} text="Reset" />
+        </div>
+
+        <div className="button-container-row">
+          <Button onClick={decreaseDuration} text="End" />
+        </div>
       </div>
       <div className="duration-input">
         <div className="duration-label">Duration (min):</div>
         <div className="duration-value">
-          <button onClick={decreaseDuration}>-</button>
+          <Button onClick={decreaseDuration} text="-" />
           <div>
             <span>{isBreakPeriod ? breakDuration : workDuration}</span>
-            <button onClick={increaseDuration}>+</button>
+            <Button onClick={increaseDuration} text="+" />
           </div>
         </div>
       </div>
