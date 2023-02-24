@@ -1,6 +1,15 @@
-# Getting Started with Create React App
+# MoodPom - A Mood-Boosting Pomodoro Timer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MoodPom is a Pomodoro Timer App that incorporates mental health and stress reduction techniques into its design and features. The app is designed to help users stay focused and productive while also reducing stress and promoting overall mental wellness.
+
+## Features
+
+- [x] Pomodoro Timer: The app includes a standard Pomodoro Timer that allows users to set work and break intervals to help them stay focused and productive.
+- [ ] Guided Meditations: During breaks, the app provides guided meditations and breathing exercises to help users relax and reduce stress.
+- [ ] Mood Tracking: The app allows users to track their moods throughout the day and provides recommendations for stress reduction techniques based on the user's mood.
+- [ ] Goal Setting: The app allows users to set daily and weekly goals and provides encouragement and motivation to help users achieve their goals.
+- [ ] Social Support: The app includes a social community feature where users can connect with others who are also working on stress reduction and mental wellness.
+
 
 ## Available Scripts
 
