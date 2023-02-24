@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Pomodoro.css";
 import Button from "../Button/Button";
+import EndFlagButton from "../EndFlagButton/EndFlagButton";
 
 const Pomodoro = () => {
   const MIN_WORK_DURATION = 1;
@@ -104,21 +105,18 @@ const Pomodoro = () => {
       <p className="pomadoro-time">{formatTime(time)}</p>
       <div className="button-container">
         <div className="button-container-row">
-          <Button onClick={startTimer} text="Start" />
-          <Button onClick={resetTimer} text="Reset" />
-        </div>
-
-        <div className="button-container-row">
-          <Button onClick={decreaseDuration} text="End" />
+          <Button onClick={startTimer} content="Start" />
+          <Button onClick={resetTimer} content="Reset" />
+          <EndFlagButton onClick={resetTimer} />
         </div>
       </div>
       <div className="duration-input">
         <div className="duration-label">Duration (min):</div>
         <div className="duration-value">
-          <Button onClick={decreaseDuration} text="-" />
+          <Button onClick={decreaseDuration} content="-" />
           <div>
             <span>{isBreakPeriod ? breakDuration : workDuration}</span>
-            <Button onClick={increaseDuration} text="+" />
+            <Button onClick={increaseDuration} content="+" />
           </div>
         </div>
       </div>

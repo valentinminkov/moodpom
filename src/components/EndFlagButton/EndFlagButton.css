@@ -1,0 +1,36 @@
+.end-flag-button {
+  background-color: transparent;
+}
+
+.end-flag-button:hover {
+  background-color: transparent;
+}
+
+.end-flag-button-container {
+  height: 20px;
+  display: flex;
+  column-gap: 2px;
+}
+
+.end-flag-button-flag {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #2e2e2e;
+  transform: rotate(180deg);
+}
+
+.end-flag-button-line {
+  width: 2px;
+  height: 100%;
+  background-color: #2e2e2e;
+}
+
+.end-flag-button-container:hover > .end-flag-button-line {
+  background-color: #3b86ff ;
+}
+
+.end-flag-button-container:hover > .end-flag-button-flag {
+  border-right: 10px solid #3b86ff ;
+}
