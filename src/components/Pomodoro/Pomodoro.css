@@ -5,6 +5,13 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  color: #fff;
+  width: fit-content;
+  border-right: 2px solid #2e2e2e;
+  /* TO DO add background-imagetransition */
+}
+
+.pomodor-work-background {
   background-image: linear-gradient(
     to right bottom,
     #f3c3a0,
@@ -13,10 +20,19 @@
     #f5664e,
     #f94f3a
   );
-  color: #fff;
-  width: fit-content;
-  border-right: 2px solid #2e2e2e;
 }
+
+.pomodoro-break-background {
+  background-image: linear-gradient(
+    to right bottom,
+    #89d8cc,
+    #8cc7a1,
+    #87b284,
+    #7a9c72,
+    #687f6b
+  );
+}
+
 .pomadoro-header {
   font-size: 64px;
   margin: 0;
@@ -86,9 +102,8 @@ input[type="number"] {
 
 .button-container > div:nth-of-type(2) {
   align-self: right;
-  margin-left:8px;
+  margin-left: 8px;
 }
-
 
 /* Media queries for smaller screens */
 @media (max-width: 768px) {

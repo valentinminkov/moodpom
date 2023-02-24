@@ -100,31 +100,43 @@ const Pomodoro = () => {
     onSetTime(newDuration);
   };
 
-  return (
-    <div className="pomodoro">
-      <h1 className="pomadoro-header">
-        {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
-      </h1>
-      <p className="pomadoro-time">{formatTime(time)}</p>
-      <div className="button-container">
-        <div className="button-group">
-          <Button onClick={startTimer} content="Start" />
-          <Button onClick={resetTimer} content="Reset" />
-        </div>
-        <div className="button-group">
-          <EndFlagButton onClick={endCycle} />
-        </div>
-      </div>
-      <div className="duration-input">
-        <div className="duration-label">Duration (min):</div>
-        <div className="duration-value">
-          <Button onClick={decreaseDuration} content="-" />
-          <div>
-            <span>{isBreakPeriod ? breakDuration : workDuration}</span>
-            <Button onClick={increaseDuration} content="+" />
+  const renderPomodoroContent = () => {
+    return (
+      <>
+        <h1 className="pomadoro-header">
+          {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
+        </h1>
+        <p className="pomadoro-time">{formatTime(time)}</p>
+        <div className="button-container">
+          <div className="button-group">
+            <Button onClick={startTimer} content="Start" />
+            <Button onClick={resetTimer} content="Reset" />
+          </div>
+          <div className="button-group">
+            <EndFlagButton onClick={endCycle} />
           </div>
         </div>
-      </div>
+        <div className="duration-input">
+          <div className="duration-label">Duration (min):</div>
+          <div className="duration-value">
+            <Button onClick={decreaseDuration} content="-" />
+            <div>
+              <span>{isBreakPeriod ? breakDuration : workDuration}</span>
+              <Button onClick={increaseDuration} content="+" />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <div
+      className={`pomodoro ${
+        isBreakPeriod ? "pomodoro-break-background" : "pomodor-work-background"
+      }`}
+    >
+      {renderPomodoroContent()}
     </div>
   );
 };
