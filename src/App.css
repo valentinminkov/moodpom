@@ -1,14 +1,14 @@
 .app-container {
-  height: 100vh;
-  background-image: linear-gradient(
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  /* background-image: linear-gradient(
     to right bottom,
     #dcedc1,
     #a8d8b9,
     #79c7b5,
     #52b8b8,
     #2d9eb5
-  );
-  
-  font-family: "Montserrat", sans-serif;
-  color: #fff;
+  ); */
+  background-color: #f0eada;
+  height: 100vh;
 }
