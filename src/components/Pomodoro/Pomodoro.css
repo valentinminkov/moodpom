@@ -4,11 +4,10 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100%;
   color: #fff;
   width: fit-content;
   border-right: 2px solid #2e2e2e;
-  /* TO DO add background-imagetransition */
+  /* TO DO add background-image transition */
 }
 
 .pomodor-work-background {
