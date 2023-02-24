@@ -78,14 +78,18 @@ input[type="number"] {
 }
 
 .button-container {
-}
-
-.button-container-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
+.button-container > div:nth-of-type(2) {
+  align-self: right;
+  margin-left:8px;
+}
+
+
 /* Media queries for smaller screens */
 @media (max-width: 768px) {
   .pomadoro-header {
