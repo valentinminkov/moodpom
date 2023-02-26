@@ -1,74 +1,107 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+import { convertToMinutes } from "../../utils/general";
 import "./Pomodoro.css";
 import Button from "../Button/Button";
 import EndFlagButton from "../EndFlagButton/EndFlagButton";
+import { AppContext } from "../../context/AppContext";
+import {
+  MINUTE,
+  SECOND,
+  MIN_WORK_DURATION,
+  MAX_WORK_DURATION,
+  BREAK_LABEL,
+  WORK_LABEL,
+} from "../../constants.js";
 
 const Pomodoro = () => {
-  const MIN_WORK_DURATION = 1;
-  const MAX_WORK_DURATION = 90;
-  const BREAK_LABEL = "Break";
-  const WORK_LABEL = "Work";
-
-  // Set the duration of the work and break periods in minutes
-  const [workDuration, setWorkDuration] = useState(25);
-  const [breakDuration, setBreakDuration] = useState(5);
+  const { appState, setAppState } = useContext(AppContext);
+  const { isBreakPeriod, workDuration, breakDuration, isTimerRunning, time } =
+    appState;
 
   // Set the initial timer state
-  const [time, setTime] = useState(workDuration * 60);
-  const [isRunning, setIsRunning] = useState(false);
-  const [isBreakPeriod, setIsBreakPeriod] = useState(false);
+
+  const setTime = useCallback(
+    (newTime) => {
+      setAppState({
+        time: newTime,
+      });
+    },
+    [setAppState]
+  );
+
+  const setisTimerRunning = useCallback(
+    (isRunning) => {
+      setAppState({ isTimerRunning: isRunning });
+    },
+    [setAppState]
+  );
 
   // Start the timer
   const startTimer = () => {
-    setIsRunning(true);
+    setisTimerRunning(true);
   };
 
-  const onSetTime = useCallback((newDuration) => {
-    const MINUTE = 60; // Define a constant for 1 minute
-
-    if (newDuration > 0) {
-      setTime(newDuration * MINUTE);
-    }
-  }, []);
+  const onSetTime = useCallback(
+    (newDuration) => {
+      if (newDuration > 0) {
+        setTime(convertToMinutes(newDuration));
+      }
+    },
+    [setTime]
+  );
 
   // Stop the timer and reset the time
   const resetTimer = () => {
-    setIsRunning(false);
+    setisTimerRunning(false);
     onSetTime(isBreakPeriod ? breakDuration : workDuration);
   };
 
   const endCycle = useCallback(() => {
     const newDuration = isBreakPeriod ? workDuration : breakDuration;
-    setIsRunning(false);
-    setIsBreakPeriod(!isBreakPeriod);
+    setisTimerRunning(false);
+    setAppState({ isBreakPeriod: !isBreakPeriod });
     onSetTime(newDuration);
-  }, [isBreakPeriod, workDuration, breakDuration, onSetTime]);
+  }, [
+    isBreakPeriod,
+    workDuration,
+    breakDuration,
+    setisTimerRunning,
+    setAppState,
+    onSetTime,
+  ]);
 
   // Update the time every second
   useEffect(() => {
     let timer;
-    if (isRunning && time > 0) {
+    if (isTimerRunning && time > 0) {
       timer = setTimeout(() => {
         setTime(time - 1);
-      }, 1000);
-    } else if (isRunning || time === 0) {
+      }, SECOND);
+    } else if (isTimerRunning || time === 0) {
       endCycle();
     }
     return () => clearTimeout(timer);
   }, [
-    isRunning,
+    isTimerRunning,
     time,
     isBreakPeriod,
     breakDuration,
     workDuration,
     onSetTime,
     endCycle,
+    setTime,
   ]);
+
+  const setTimeDuration = (newDuration) => {
+    isBreakPeriod
+      ? setAppState({ breakDuration: newDuration })
+      : setAppState({ workDuration: newDuration });
+  };
 
   // Format the time as a string
   const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    const minutes = Math.floor(time / MINUTE);
+    const seconds = time % MINUTE;
     return `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;
@@ -80,10 +113,7 @@ const Pomodoro = () => {
 
     if (newDuration < MIN_WORK_DURATION) return;
 
-    isBreakPeriod
-      ? setBreakDuration(newDuration)
-      : setWorkDuration(newDuration);
-
+    setTimeDuration(newDuration);
     onSetTime(newDuration);
   };
 
@@ -93,10 +123,7 @@ const Pomodoro = () => {
 
     if (newDuration === MAX_WORK_DURATION) return;
 
-    isBreakPeriod
-      ? setBreakDuration(newDuration)
-      : setWorkDuration(newDuration);
-
+    setTimeDuration(newDuration);
     onSetTime(newDuration);
   };
 

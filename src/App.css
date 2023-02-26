@@ -1,14 +1,14 @@
 .app-container {
   font-family: "Montserrat", sans-serif;
   color: #fff;
-  /* background-image: linear-gradient(
-    to right bottom,
-    #dcedc1,
-    #a8d8b9,
-    #79c7b5,
-    #52b8b8,
-    #2d9eb5
-  ); */
-  background-color: #f0eada;
   height: 100vh;
+  display: flex;
+}
+
+.work-content {
+  width: 100%;
+}
+
+.break-content {
+  width: 0;
 }
