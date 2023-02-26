@@ -33,13 +33,13 @@
   );
 }
 
-.pomadoro-header {
+.pomodoro-header {
   font-size: 64px;
   margin: 0;
   text-align: center;
 }
 
-.pomadoro-time {
+.pomodoro-time {
   font-size: 96px;
   margin-bottom: 30px;
   text-align: center;
@@ -107,10 +107,10 @@ input[type="number"] {
 
 /* Media queries for smaller screens */
 @media (max-width: 768px) {
-  .pomadoro-header {
+  .pomodoro-header {
     font-size: 48px;
   }
-  .pomadoro-time {
+  .pomodoro-time {
     font-size: 72px;
   }
   .duration-label {
@@ -134,10 +134,10 @@ input[type="number"] {
 
 /* Media queries for even smaller screens */
 @media (max-width: 576px) {
-  .pomadoro-header {
+  .pomodoro-header {
     font-size: 36px;
   }
-  .pomadoro-time {
+  .pomodoro-time {
     font-size: 56px;
   }
   .duration-label {
