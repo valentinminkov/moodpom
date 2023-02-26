@@ -10,7 +10,6 @@
 }
 
 .pomodor-work-background {
-  width: 100%;
   background-image: linear-gradient(
     to right bottom,
     #f3c3a0,
@@ -23,7 +22,6 @@
 
 .pomodoro-break-background {
   height: 100%;
-  width: 450px;
   border-right: 2px solid #A1B9A1;
   background-image: linear-gradient(
     to right bottom,

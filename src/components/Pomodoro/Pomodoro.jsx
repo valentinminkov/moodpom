@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useEffect, useCallback, useContext } from "react";
 import { convertToMinutes } from "../../utils/general";
-import "./Pomodoro.css";
+import styles from "./Pomodoro.module.css";
 import Button from "../Button/Button";
 import EndFlagButton from "../EndFlagButton/EndFlagButton";
 import { AppContext } from "../../context/AppContext";
@@ -130,22 +130,22 @@ const Pomodoro = () => {
   const renderPomodoroContent = () => {
     return (
       <>
-        <h1 className="pomadoro-header">
+        <h1 className={styles["pomodoro-header"]}>
           {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
         </h1>
-        <p className="pomadoro-time">{formatTime(time)}</p>
-        <div className="button-container">
-          <div className="button-group">
+        <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
+        <div className={styles["button-container"]}>
+          <div className={styles["button-group"]}>
             <Button onClick={startTimer} content="Start" />
             <Button onClick={resetTimer} content="Reset" />
           </div>
-          <div className="button-group">
+          <div className={styles["button-group"]}>
             <EndFlagButton onClick={endCycle} />
           </div>
         </div>
-        <div className="duration-input">
-          <div className="duration-label">Duration (min):</div>
-          <div className="duration-value">
+        <div className={styles["duration-input"]}>
+          <div className={styles["duration-label"]}>Duration (min):</div>
+          <div className={styles["duration-value"]}>
             <Button onClick={decreaseDuration} content="-" />
             <div>
               <span>{isBreakPeriod ? breakDuration : workDuration}</span>
@@ -159,8 +159,10 @@ const Pomodoro = () => {
 
   return (
     <div
-      className={`pomodoro ${
-        isBreakPeriod ? "pomodoro-break-background" : "pomodor-work-background"
+      className={`${styles.pomodoro} ${
+        isBreakPeriod
+          ? `${styles["pomodoro-break-background"]}`
+          : `${styles["pomodor-work-background"]}`
       }`}
     >
       {renderPomodoroContent()}
