@@ -67,7 +67,7 @@ const Pomodoro = () => {
     breakDuration,
     setisTimerRunning,
     setAppState,
-    onSetTime,
+    onSetTime
   ]);
 
   // Update the time every second

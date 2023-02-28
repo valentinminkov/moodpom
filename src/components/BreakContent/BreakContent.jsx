@@ -1,12 +1,15 @@
-const BreakContent = () => {
+import React from "react";
+import styles from "./BreakContent.module.css";
+
+const BreakContent = ({ className: propClasses }) => {
   return (
-    <div className="break-content">
-      <h1>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde placeat
-        modi quod nulla, nostrum soluta voluptates eaque molestias explicabo ea
-        ab. Labore laudantium porro aut rerum fuga quod tempore harum.
-      </h1>
-      <p></p>
+    <div className={`${styles["break-content"]} ${propClasses}`}>
+      <h1 className={styles.title}>Lorem ipsum dolor sit amet consectetur.</h1>
+      <p className={styles.paragraph}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione placeat
+        cupiditate nihil autem ab eius quas dolor ex quo, magnam nemo adipisci
+        molestias animi voluptates officia cumque id iusto recusandae!
+      </p>
     </div>
   );
 };
