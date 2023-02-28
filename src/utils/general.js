@@ -4,4 +4,18 @@ const convertToMinutes = (time) => {
   return time * MINUTE;
 };
 
-export { convertToMinutes };
+const addClassWithDelay = (targetContainerClass, classToAdd, delay) => {
+  setTimeout(() => {
+    const breakContainer = document.querySelector(`.${targetContainerClass}`);
+    breakContainer.classList.add(classToAdd);
+  }, delay);
+};
+
+const removeClassWithDelay = (targetContainerClass, classToRemove, delay) => {
+  setTimeout(() => {
+    const breakContainer = document.querySelector(`.${targetContainerClass}`);
+    breakContainer.classList.remove(classToRemove);
+  }, delay);
+};
+
+export { convertToMinutes, addClassWithDelay, removeClassWithDelay };

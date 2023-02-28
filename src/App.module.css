@@ -1,0 +1,35 @@
+.app-container {
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+}
+
+.pomodoro-content {
+  transition: width 1s ease-in-out;
+}
+
+.pomodoro-content.work {
+  width: 100%;
+}
+
+.pomodoro-content.break {
+  width: 30%;
+}
+
+.break-content-container {
+  transition: width 1s ease-in-out, opacity 0.7s ease-in-out;
+}
+
+.break-content-container.opened {
+  width: 70%;
+}
+
+.break-content-container.closed {
+  width: 0;
+  opacity: 0;
+}
+
+.break-content-container.hide{
+  display: none;
+}
