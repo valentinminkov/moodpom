@@ -4,6 +4,4 @@ const convertToMinutes = (time) => {
   return time * MINUTE;
 };
 
-
-
 export { convertToMinutes };
