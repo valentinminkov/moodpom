@@ -36,9 +36,9 @@ const Pomodoro = () => {
     [setAppState]
   );
 
-  // Start the timer
-  const startTimer = () => {
-    setisTimerRunning(true);
+  // Toggle the timer
+  const toggleTimer = () => {
+    setisTimerRunning(!isTimerRunning);
   };
 
   const onSetTime = useCallback(
@@ -67,7 +67,7 @@ const Pomodoro = () => {
     breakDuration,
     setisTimerRunning,
     setAppState,
-    onSetTime
+    onSetTime,
   ]);
 
   // Update the time every second
@@ -136,7 +136,10 @@ const Pomodoro = () => {
         <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
         <div className={styles["button-container"]}>
           <div className={styles["button-group"]}>
-            <Button onClick={startTimer} content="Start" />
+            <Button
+              onClick={toggleTimer}
+              content={isTimerRunning ? "Start" : "Pause"}
+            />
             <Button onClick={resetTimer} content="Reset" />
           </div>
           <div className={styles["button-group"]}>
