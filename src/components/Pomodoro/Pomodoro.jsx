@@ -138,7 +138,7 @@ const Pomodoro = () => {
           <div className={styles["button-group"]}>
             <Button
               onClick={toggleTimer}
-              content={isTimerRunning ? "Start" : "Pause"}
+              content={!isTimerRunning ? "Start" : "Pause"}
             />
             <Button onClick={resetTimer} content="Reset" />
           </div>
