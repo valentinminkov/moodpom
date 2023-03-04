@@ -1,8 +1,7 @@
 import React, { useEffect, useCallback, useContext } from "react";
 import { convertToMinutes } from "../../utils/general";
 import styles from "./Pomodoro.module.css";
-import Button from "../Button/Button";
-import EndFlagButton from "../EndFlagButton/EndFlagButton";
+import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import {
   MINUTE,
@@ -143,16 +142,26 @@ const Pomodoro = () => {
             <Button onClick={resetTimer} content="Reset" />
           </div>
           <div className={styles["button-group"]}>
-            <EndFlagButton onClick={endCycle} />
+            <Button onClick={endCycle} isEndFlagButton={true} />
           </div>
         </div>
         <div className={styles["duration-input"]}>
           <div className={styles["duration-label"]}>Duration (min):</div>
           <div className={styles["duration-value"]}>
-            <Button onClick={decreaseDuration} content="-" />
+            <Button
+              onClick={decreaseDuration}
+              content="-"
+              className={styles["duration-value-button"]}
+              theme={BUTTON_THEME.SECONDARY}
+            />
             <div>
               <span>{isBreakPeriod ? breakDuration : workDuration}</span>
-              <Button onClick={increaseDuration} content="+" />
+              <Button
+                onClick={increaseDuration}
+                content="+"
+                className={styles["duration-value-button"]}
+                theme={BUTTON_THEME.SECONDARY}
+              />
             </div>
           </div>
         </div>
