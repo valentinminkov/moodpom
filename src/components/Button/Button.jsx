@@ -5,6 +5,15 @@ export const BUTTON_THEME = {
   SECONDARY: "secondary",
 };
 
+const renderEndFlagButton = () => {
+  return (
+    <div className={`${styles["end-flag-button-container"]}`}>
+      <div className={`${styles["end-flag-button-flag"]}`}></div>
+      <div className={`${styles["end-flag-button-line"]}`}></div>
+    </div>
+  );
+};
+
 const Button = ({
   onClick,
   content,
@@ -14,16 +23,12 @@ const Button = ({
 }) => {
   const classes = isEndFlagButton
     ? `${styles.button} ${styles["end-flag-button"]}`
-    : `${styles.button} ${className ?? ""} ${styles[`button-${theme}`]}`;
+    : `${styles.button} ${className ?? ""} ${
+        isEndFlagButton ? `${styles["end-flag-button"]}` : ""
+      } ${styles[`button-${theme}`]}`;
 
-  const buttonContent = isEndFlagButton ? (
-    <div className={`${styles["end-flag-button-container"]}`}>
-      <div className={`${styles["end-flag-button-flag"]}`}></div>
-      <div className={`${styles["end-flag-button-line"]}`}></div>
-    </div>
-  ) : (
-    content
-  );
+  const buttonContent = isEndFlagButton ? renderEndFlagButton() : content;
+
   return (
     <button className={classes} onClick={onClick}>
       {buttonContent}
