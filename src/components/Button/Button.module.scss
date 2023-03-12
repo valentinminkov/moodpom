@@ -1,0 +1,71 @@
+@mixin large-padding-and-margin {
+  padding: 8px;
+  margin: 16px;
+}
+
+.button {
+  font-size: 24px;
+
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* TO DO Themes can be separated better with scss */
+.button-primary {
+  @include large-padding-and-margin;
+  color: #ffffff;
+  background-color: #1c2331;
+}
+
+.button-secondary {
+  font-size: 32px;
+  @include large-padding-and-margin;
+  transition: color 0.3s ease-in-out;
+}
+
+.button-primary:hover {
+  background-color: #8db6d7;
+}
+
+.button-secondary:hover {
+  color: #8db6d7;
+}
+
+.button-secondary {
+  background-color: transparent;
+}
+
+.button-icon {
+  background-color: transparent;
+  div {
+    width: 40px;
+    height: 40px;
+    svg {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      transition: color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    }
+    &:hover {
+      color: green;
+      fill: green;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .button-primary,
+  .button-secondary {
+    font-size: 20px;
+    margin: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .button-primary,
+  .button-secondary {
+    font-size: 16px;
+  }
+}

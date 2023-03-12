@@ -1,17 +1,9 @@
-import styles from "./Button.module.css";
+import styles from "./Button.module.scss";
 
 export const BUTTON_THEME = {
   PRIMARY: "primary",
   SECONDARY: "secondary",
-};
-
-const renderEndFlagButton = () => {
-  return (
-    <div className={`${styles["end-flag-button-container"]}`}>
-      <div className={`${styles["end-flag-button-flag"]}`}></div>
-      <div className={`${styles["end-flag-button-line"]}`}></div>
-    </div>
-  );
+  ICON: "icon",
 };
 
 const Button = ({
@@ -19,19 +11,14 @@ const Button = ({
   content,
   className,
   theme = BUTTON_THEME.PRIMARY,
-  isEndFlagButton = false,
 }) => {
-  const classes = isEndFlagButton
-    ? `${styles.button} ${styles["end-flag-button"]}`
-    : `${styles.button} ${className ?? ""} ${
-        isEndFlagButton ? `${styles["end-flag-button"]}` : ""
-      } ${styles[`button-${theme}`]}`;
-
-  const buttonContent = isEndFlagButton ? renderEndFlagButton() : content;
+  const classes = `${styles.button} ${className ?? ""} ${
+    styles[`button-${theme}`]
+  }`;
 
   return (
     <button className={classes} onClick={onClick}>
-      {buttonContent}
+      {content}
     </button>
   );
 };
