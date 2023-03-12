@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useContext } from "react";
 import { convertToMinutes } from "../../utils/general";
-import styles from "./Pomodoro.module.css";
+import Icon from "../Icon/Icon";
+import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import {
@@ -16,6 +17,8 @@ const Pomodoro = () => {
   const { appState, setAppState } = useContext(AppContext);
   const { isBreakPeriod, workDuration, breakDuration, isTimerRunning, time } =
     appState;
+  const fullDuration = isBreakPeriod ? breakDuration : workDuration;
+  const isFullDuration = fullDuration === time / MINUTE;
 
   // Set the initial timer state
 
@@ -128,25 +131,41 @@ const Pomodoro = () => {
 
   const renderPomodoroContent = () => {
     return (
-      <>
+      <div>
         <h1 className={styles["pomodoro-header"]}>
           {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
+          <div className={styles.skipButton}>
+            <Button
+              onClick={endCycle}
+              content={<Icon icon="skip" />}
+              theme={BUTTON_THEME.ICON}
+            />
+          </div>
         </h1>
-        <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
-        <div className={styles["button-container"]}>
-          <div className={styles["button-group"]}>
+        <div className={styles.timerContainer}>
+          <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
+          <div className={styles.buttonContainer}>
+            <Button
+              className={`${styles.resetIcon} ${
+                !isFullDuration ? styles.display : ""
+              }`}
+              onClick={resetTimer}
+              content={<Icon icon="reset" />}
+              theme={BUTTON_THEME.ICON}
+            />
+
             <Button
               onClick={toggleTimer}
-              content={!isTimerRunning ? "Start" : "Pause"}
+              content={
+                !isTimerRunning ? <Icon icon="play" /> : <Icon icon="pause" />
+              }
+              className={styles.playPauseIcon}
+              theme={BUTTON_THEME.ICON}
             />
-            <Button onClick={resetTimer} content="Reset" />
-          </div>
-          <div className={styles["button-group"]}>
-            <Button onClick={endCycle} isEndFlagButton={true} />
           </div>
         </div>
+
         <div className={styles["duration-input"]}>
-          <div className={styles["duration-label"]}>Duration (min):</div>
           <div className={styles["duration-value"]}>
             <Button
               onClick={decreaseDuration}
@@ -165,7 +184,7 @@ const Pomodoro = () => {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 

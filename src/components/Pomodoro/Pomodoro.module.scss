@@ -1,0 +1,197 @@
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  transition: width 1s ease-in-out;
+  /* TO DO add background-image transition */
+}
+
+.pomodor-work-background {
+  background-image: linear-gradient(
+    to right bottom,
+    #f3c3a0,
+    #f4a582,
+    #f78164,
+    #f5664e,
+    #f94f3a
+  );
+}
+
+.pomodoro-break-background {
+  height: 100%;
+  border-right: 2px solid #a1b9a1;
+  background-image: linear-gradient(
+    to right bottom,
+    #89d8cc,
+    #8cc7a1,
+    #87b284,
+    #7a9c72,
+    #687f6b
+  );
+}
+
+.pomodoro-header {
+  font-size: 64px;
+  margin: 0;
+  text-align: center;
+}
+
+.timerContainer {
+  display: flex;
+  align-items: center;
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .resetIcon {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    &.display {
+      opacity: 100%;
+    }
+    div {
+      svg {
+        width: 16px;
+        position: relative;
+        right: 15px;
+      }
+    }
+  }
+}
+
+.playPauseIcon {
+  position: relative;
+  top: 10px;
+}
+
+.pomodoro-time {
+  font-size: 96px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.duration-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.duration-label {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.duration-value {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.duration-value-button {
+  font-size: 24px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.duration-value div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin: 5px;
+  width: 80px;
+}
+
+.duration-value div span {
+  margin: 0 10px;
+}
+
+input[type="number"] {
+  display: none;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container > div:nth-of-type(2) {
+  align-self: right;
+  margin-left: 8px;
+}
+
+.skipButton {
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .pomodoro-header {
+    font-size: 48px;
+  }
+  .pomodoro-time {
+    font-size: 72px;
+  }
+  .duration-label {
+    font-size: 20px;
+    margin: 5px;
+  }
+  .duration-value-button {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 5px;
+  }
+  .duration-value div {
+    font-size: 20px;
+    margin: 5px;
+    width: 60px;
+  }
+  .duration-value div span {
+    margin: 0 5px;
+  }
+}
+
+/* Media queries for even smaller screens */
+@media (max-width: 576px) {
+  .pomodoro-header {
+    font-size: 36px;
+  }
+  .pomodoro-time {
+    font-size: 56px;
+  }
+  .duration-label {
+    font-size: 18px;
+    margin: 5px;
+    margin: 5px;
+  }
+  .duration-value-button {
+    font-size: 18px;
+    padding: 5px 8px;
+    margin: 5px;
+  }
+  .duration-value div {
+    font-size: 18px;
+    margin: 5px;
+    width: 50px;
+  }
+  .duration-value div span {
+    margin: 0 5px;
+  }
+}
