@@ -23,9 +23,9 @@ const IconComponent = ({ icon, className }) => {
   return <></>;
 };
 
-const Icon = ({ icon, className }) => {
+const Icon = ({ icon, className, onClick }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <IconComponent icon={icon} className={`${styles.icon} ${className}`} />
     </div>
   );

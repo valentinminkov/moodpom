@@ -12,6 +12,7 @@ const defaultState = {
   isTimerRunning: false,
   time: convertToMinutes(25),
   isRightOn: false,
+  exercise: null,
 };
 
 function AppProvider(props) {
