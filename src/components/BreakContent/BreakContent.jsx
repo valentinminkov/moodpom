@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import styles from "./BreakContent.module.scss";
+import Icon from "../Icon/Icon";
 import { breathingExercises, meditationExercises } from "../../dummyData/data";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
@@ -21,9 +22,14 @@ const BreakContent = ({ className: propClasses }) => {
         <ToggleSwitch />
         <span className={styles.meditateLabel}> Meditate</span>
       </div>
-
-      <h1 className={styles.title}>{exercise.name}</h1>
-      <p className={styles.paragraph}>{exercise.description}</p>
+      <div className={styles.contentContainer}>
+        <div className={styles.headerContainer}>
+          <Icon icon="left" className={styles.controlIcon}/>
+          <h1 className={styles.title}>{exercise.name}</h1>
+          <Icon icon="right" className={styles.controlIcon} />
+        </div>
+        <p className={styles.paragraph}>{exercise.description}</p>
+      </div>
     </div>
   );
 };

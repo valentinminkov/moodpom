@@ -3,6 +3,8 @@ import { ReactComponent as PlayIcon } from "./icons/play.svg";
 import { ReactComponent as PauseIcon } from "./icons/pause.svg";
 import { ReactComponent as ResetIcon } from "./icons/reset.svg";
 import { ReactComponent as SkipIcon } from "./icons/skip.svg";
+import { ReactComponent as LeftIcon } from "./icons/left.svg";
+import { ReactComponent as RightIcon } from "./icons/right.svg";
 
 const IconComponent = ({ icon, className }) => {
   if (icon === "play") {
@@ -13,14 +15,18 @@ const IconComponent = ({ icon, className }) => {
     return <ResetIcon className={className} />;
   } else if (icon === "skip") {
     return <SkipIcon className={className} />;
+  } else if (icon === "left") {
+    return <LeftIcon className={className} />;
+  } else if (icon === "right") {
+    return <RightIcon className={className} />;
   }
   return <></>;
 };
 
-const Icon = ({ icon }) => {
+const Icon = ({ icon, className }) => {
   return (
     <div className={styles.container}>
-      <IconComponent icon={icon} className={styles.icon} />
+      <IconComponent icon={icon} className={`${styles.icon} ${className}`} />
     </div>
   );
 };
