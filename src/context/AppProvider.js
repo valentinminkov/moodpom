@@ -11,6 +11,7 @@ const defaultState = {
   breakDuration: 5,
   isTimerRunning: false,
   time: convertToMinutes(25),
+  isRightOn: false,
 };
 
 function AppProvider(props) {
