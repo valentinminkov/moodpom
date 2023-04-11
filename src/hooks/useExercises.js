@@ -7,7 +7,7 @@ const useExercises = () => {
   const { isRightOn, exercise } = appState;
   const exercises = isRightOn ? meditationExercises : breathingExercises;
   const exerciseIndex = exercises.findIndex(
-    (newExercise) => newExercise.name === exercise.name
+    (newExercise) => newExercise.name === exercise?.name
   );
 
   useEffect(() => {
