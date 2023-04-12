@@ -31,6 +31,20 @@ const useNotificationPermission = () => {
     };
   }, []);
 
+  const showNotificationWithAudio = (message, audioSrc = null) => {
+    if (permission === "granted") {
+      new Notification(message);
+
+      if (audioSrc) {
+        const audio = new Audio(audioSrc);
+        audio.play();
+      } else {
+        const defaultAudio = new Audio();
+        defaultAudio.play();
+      }
+    }
+  };
+
   const openNotificationSettings = () => {
     const userAgent = navigator.userAgent.toLowerCase();
 
@@ -61,7 +75,12 @@ const useNotificationPermission = () => {
     }
   };
 
-  return [permission, requestNotificationPermission, openNotificationSettings];
+  return {
+    permission,
+    requestNotificationPermission,
+    openNotificationSettings,
+    showNotificationWithAudio,
+  };
 };
 
 export default useNotificationPermission;

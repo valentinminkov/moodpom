@@ -6,8 +6,11 @@ import BreakContent from "./components/BreakContent/BreakContent";
 import useNotificationPermission from "./hooks/useNotificationPermission";
 
 function App() {
-  const [permission, requestNotificationPermission, openNotificationSettings] =
-    useNotificationPermission();
+  const {
+    permission,
+    requestNotificationPermission,
+    openNotificationSettings,
+  } = useNotificationPermission();
   const { appState } = useContext(AppContext);
   const { isBreakPeriod, isRightOn } = appState;
 
