@@ -1,15 +1,34 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 const useNotificationPermission = () => {
   const [permission, setPermission] = useState(Notification.permission);
 
-  const updatePermission = () => {
-    setPermission(Notification.permission);
-  };
-
   const requestNotificationPermission = useCallback(async () => {
-    await Notification.requestPermission();
-    updatePermission();
+    setPermission(await Notification.requestPermission());
+  }, []);
+
+  useEffect(() => {
+    const permissionChangeHandler = () => {
+      setPermission(Notification.permission);
+    };
+
+    if ("permissions" in navigator) {
+      navigator.permissions
+        .query({ name: "notifications" })
+        .then((permissionStatus) => {
+          permissionStatus.onchange = permissionChangeHandler;
+        });
+    }
+
+    return () => {
+      if ("permissions" in navigator) {
+        navigator.permissions
+          .query({ name: "notifications" })
+          .then((permissionStatus) => {
+            permissionStatus.onchange = null;
+          });
+      }
+    };
   }, []);
 
   const openNotificationSettings = () => {
