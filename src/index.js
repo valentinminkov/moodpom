@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "./components/Layout/Layout";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -8,7 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AppProvider>
-      <App />
+      <Layout>
+        <App />
+      </Layout>
     </AppProvider>
   </React.StrictMode>
 );

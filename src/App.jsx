@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import styles from "./App.module.scss";
 import { AppContext } from "./context/AppContext";
 import Pomodoro from "./components/Pomodoro/Pomodoro";
-import Button from "./components/Button/Button";
 import BreakContent from "./components/BreakContent/BreakContent";
 import useNotificationPermission from "./hooks/useNotificationPermission";
 
@@ -28,12 +27,6 @@ function App() {
 
   return (
     <div className={styles["app-container"]}>
-      {permission === "default" && (
-        <Button
-          onClick={requestNotificationPermission}
-          content={<p>Enable Notifications</p>}
-        />
-      )}
       <div
         className={`${styles["pomodoro-content"]} ${
           isBreakPeriod ? styles.break : styles.work
