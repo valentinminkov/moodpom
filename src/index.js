@@ -5,13 +5,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AppProvider from "./context/AppProvider";
+import { NotificationProvider } from "./context/NotificationContext";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AppProvider>
-      <Layout>
-        <App />
-      </Layout>
+      <NotificationProvider>
+        <Layout>
+          <App />
+        </Layout>
+      </NotificationProvider>
     </AppProvider>
   </React.StrictMode>
 );
