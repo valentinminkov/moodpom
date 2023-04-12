@@ -31,17 +31,9 @@ const useNotificationPermission = () => {
     };
   }, []);
 
-  const showNotificationWithAudio = (message, audioSrc = null) => {
+  const showNotification = (message) => {
     if (permission === "granted") {
       new Notification(message);
-
-      if (audioSrc) {
-        const audio = new Audio(audioSrc);
-        audio.play();
-      } else {
-        const defaultAudio = new Audio();
-        defaultAudio.play();
-      }
     }
   };
 
@@ -79,7 +71,7 @@ const useNotificationPermission = () => {
     permission,
     requestNotificationPermission,
     openNotificationSettings,
-    showNotificationWithAudio,
+    showNotification,
   };
 };
 
