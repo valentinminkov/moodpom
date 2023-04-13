@@ -1,40 +1,42 @@
-@mixin large-padding-and-margin {
-  padding: 8px;
-  margin: 16px;
+@mixin hover-effect($scale, $opacity) {
+  &:hover {
+    transform: scale($scale);
+    opacity: $opacity;
+  }
+}
+
+@mixin padding-and-margin {
+  padding: 12px 24px;
+  margin: 8px;
 }
 
 .button {
-  font-size: 24px;
-
-  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/* TO DO Themes can be separated better with scss */
 .button-primary {
-  @include large-padding-and-margin;
+  @include padding-and-margin;
   color: #ffffff;
   background-color: #1c2331;
 }
 
 .button-secondary {
-  font-size: 32px;
-  @include large-padding-and-margin;
-  transition: color 0.3s ease-in-out;
+  @include padding-and-margin;
+  color: #1c2331;
+  background-color: transparent;
+  border: 2px solid #1c2331;
 }
-
 .button-primary:hover {
   background-color: #8db6d7;
 }
 
 .button-secondary:hover {
-  color: #8db6d7;
-}
-
-.button-secondary {
-  background-color: transparent;
+  @include hover-effect(1.1, 0.6);
 }
 
 .button-icon {
@@ -49,8 +51,7 @@
       transition: color 0.3s ease-in-out, fill 0.3s ease-in-out;
     }
     &:hover {
-      color: green;
-      fill: green;
+      @include hover-effect(1.1, 0.6);
     }
   }
 }
@@ -58,7 +59,7 @@
 @media (max-width: 768px) {
   .button-primary,
   .button-secondary {
-    font-size: 20px;
+    font-size: 14px;
     margin: 4px;
   }
 }
@@ -66,6 +67,6 @@
 @media (max-width: 576px) {
   .button-primary,
   .button-secondary {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
