@@ -222,7 +222,7 @@ const Pomodoro = () => {
       className={`${styles.pomodoro} ${
         isBreakPeriod
           ? `${styles["pomodoro-break-background"]}`
-          : `${styles["pomodor-work-background"]}`
+          : `${styles["pomodoro-work-background"]}`
       }`}
     >
       {renderPomodoroContent()}
