@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import styles from "./BreakContent.module.scss";
 import useExercises from "../../hooks/useExercises";
@@ -9,6 +9,29 @@ const BreakContent = ({ className: propClasses }) => {
   const { appState } = useContext(AppContext);
   const { isRightOn } = appState;
   const { exerciseIndex, exercises, adjustExercise, exercise } = useExercises();
+
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 37) {
+      // Left arrow
+      event.preventDefault();
+      if (exerciseIndex > 0) {
+        adjustExercise();
+      }
+    } else if (event.keyCode === 39) {
+      // Right arrow
+      event.preventDefault();
+      if (exerciseIndex < exercises.length - 1) {
+        adjustExercise(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
 
   return (
     <div className={`${styles["break-content"]} ${propClasses}`}>
