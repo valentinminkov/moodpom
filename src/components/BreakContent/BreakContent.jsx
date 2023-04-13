@@ -24,21 +24,25 @@ const BreakContent = ({ className: propClasses }) => {
       {exercise && (
         <div className={styles.contentContainer}>
           <div className={styles.headerContainer}>
-            {exerciseIndex > 0 && (
-              <Icon
-                icon="left"
-                className={styles.controlIcon}
-                onClick={() => adjustExercise()}
-              />
-            )}
+            <div>
+              {exerciseIndex > 0 && (
+                <Icon
+                  icon="left"
+                  className={styles.controlIcon}
+                  onClick={() => adjustExercise()}
+                />
+              )}
+            </div>
             <h1 className={styles.title}>{exercise.name}</h1>
-            {exerciseIndex < exercises.length - 1 && (
-              <Icon
-                icon="right"
-                className={styles.controlIcon}
-                onClick={() => adjustExercise(true)}
-              />
-            )}
+            <div>
+              {exerciseIndex < exercises.length - 1 && (
+                <Icon
+                  icon="right"
+                  className={styles.controlIcon}
+                  onClick={() => adjustExercise(true)}
+                />
+              )}
+            </div>
           </div>
           <p className={styles.paragraph}>{exercise.description}</p>
         </div>
