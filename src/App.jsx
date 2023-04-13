@@ -3,14 +3,14 @@ import styles from "./App.module.scss";
 import { AppContext } from "./context/AppContext";
 import Pomodoro from "./components/Pomodoro/Pomodoro";
 import BreakContent from "./components/BreakContent/BreakContent";
-import useNotificationPermission from "./hooks/useNotificationPermission";
+import useNotifications from "./hooks/useNotifications";
 
 function App() {
   const {
     permission,
     requestNotificationPermission,
     openNotificationSettings,
-  } = useNotificationPermission();
+  } = useNotifications();
   const { appState } = useContext(AppContext);
   const { isBreakPeriod, isRightOn } = appState;
 

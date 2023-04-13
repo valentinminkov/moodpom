@@ -1,21 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Layout.module.scss";
 import Button from "../Button/Button";
 import Overlay, { OVERLAY_POSITIONS } from "../Overlay/Overlay";
-import useNotificationPermission from "../../hooks/useNotificationPermission";
+import useNotifications from "../../hooks/useNotifications";
 
 const Layout = ({ children }) => {
-  const {
-    permission,
-    requestNotificationPermission,
-    showNotificationWithAudio,
-  } = useNotificationPermission();
-
-  useEffect(() => {
-    if (permission === "granted") {
-      showNotificationWithAudio("Test notification");
-    }
-  }, [permission, showNotificationWithAudio]);
+  const { permission, requestNotificationPermission } =
+  useNotifications();
 
   return (
     <>
