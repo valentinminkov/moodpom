@@ -47,7 +47,7 @@ const Pomodoro = () => {
     } else {
       document.title = `${formatTime(time)}|${
         isBreakPeriod ? BREAK_LABEL : WORK_LABEL
-      }`;
+      } • ${APP_TITLE}`;
     }
   }, [isBreakPeriod, isTimerRunning, time]);
 
