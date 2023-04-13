@@ -13,6 +13,7 @@ import {
   MAX_WORK_DURATION,
   BREAK_LABEL,
   WORK_LABEL,
+  APP_TITLE,
 } from "../../constants.js";
 
 const Pomodoro = () => {
@@ -39,6 +40,16 @@ const Pomodoro = () => {
     },
     [setAppState]
   );
+
+  useEffect(() => {
+    if (!isTimerRunning) {
+      document.title = APP_TITLE; // default title
+    } else {
+      document.title = `${formatTime(time)}|${
+        isBreakPeriod ? BREAK_LABEL : WORK_LABEL
+      }`;
+    }
+  }, [isBreakPeriod, isTimerRunning, time]);
 
   // Toggle the timer
   const toggleTimer = () => {
