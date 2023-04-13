@@ -35,41 +35,43 @@ const BreakContent = ({ className: propClasses }) => {
 
   return (
     <div className={`${styles["break-content"]} ${propClasses}`}>
-      <div
-        className={`${styles.controlSwitch} ${
-          isRightOn ? styles.meditateOn : styles.breatheOn
-        }`}
-      >
-        <span className={styles.breatheLabel}>Breathe</span>
-        <ToggleSwitch />
-        <span className={styles.meditateLabel}> Meditate</span>
-      </div>
-      {exercise && (
-        <div className={styles.contentContainer}>
-          <div className={styles.headerContainer}>
-            <div>
-              {exerciseIndex > 0 && (
-                <Icon
-                  icon="left"
-                  className={styles.controlIcon}
-                  onClick={() => adjustExercise()}
-                />
-              )}
-            </div>
-            <h1 className={styles.title}>{exercise.name}</h1>
-            <div>
-              {exerciseIndex < exercises.length - 1 && (
-                <Icon
-                  icon="right"
-                  className={styles.controlIcon}
-                  onClick={() => adjustExercise(true)}
-                />
-              )}
-            </div>
-          </div>
-          <p className={styles.paragraph}>{exercise.description}</p>
+      <div className={styles.container}>
+        <div
+          className={`${styles.controlSwitch} ${
+            isRightOn ? styles.meditateOn : styles.breatheOn
+          }`}
+        >
+          <span className={styles.breatheLabel}>Breathe</span>
+          <ToggleSwitch />
+          <span className={styles.meditateLabel}> Meditate</span>
         </div>
-      )}
+        {exercise && (
+          <div className={styles.contentContainer}>
+            <div className={styles.headerContainer}>
+              <div>
+                {exerciseIndex > 0 && (
+                  <Icon
+                    icon="left"
+                    className={styles.controlIcon}
+                    onClick={() => adjustExercise()}
+                  />
+                )}
+              </div>
+              <h1 className={styles.title}>{exercise.name}</h1>
+              <div>
+                {exerciseIndex < exercises.length - 1 && (
+                  <Icon
+                    icon="right"
+                    className={styles.controlIcon}
+                    onClick={() => adjustExercise(true)}
+                  />
+                )}
+              </div>
+            </div>
+            <p className={styles.paragraph}>{exercise.description}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
