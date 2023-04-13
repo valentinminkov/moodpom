@@ -1,6 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import useAudioPlayer from "./useAudioPlayer";
+import dingalingSound from "./dingaling.mp3";
 
-const useNotificationPermission = () => {
+const useNotifications = () => {
+  const soundNotificationTimeoutId = useRef(null);
+  const { playAudio } = useAudioPlayer(dingalingSound);
+
   const [permission, setPermission] = useState(Notification.permission);
 
   const requestNotificationPermission = useCallback(async () => {
@@ -34,6 +39,17 @@ const useNotificationPermission = () => {
   const showNotification = (message) => {
     if (permission === "granted") {
       new Notification(message);
+    }
+  };
+
+  const showNotificationWithSound = (message, delay, cancel = false) => {
+    if (cancel) {
+      clearTimeout(soundNotificationTimeoutId.current);
+    } else {
+      soundNotificationTimeoutId.current = setTimeout(() => {
+        playAudio();
+        showNotification(message);
+      }, delay);
     }
   };
 
@@ -72,7 +88,9 @@ const useNotificationPermission = () => {
     requestNotificationPermission,
     openNotificationSettings,
     showNotification,
+    showNotificationWithSound,
+    soundNotificationTimeoutId,
   };
 };
 
-export default useNotificationPermission;
+export default useNotifications;

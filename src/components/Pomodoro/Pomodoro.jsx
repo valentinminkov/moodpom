@@ -4,6 +4,8 @@ import Icon from "../Icon/Icon";
 import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
+import useNotifications from "../../hooks/useNotifications";
+
 import {
   MINUTE,
   SECOND,
@@ -19,8 +21,8 @@ const Pomodoro = () => {
     appState;
   const fullDuration = isBreakPeriod ? breakDuration : workDuration;
   const isFullDuration = fullDuration === time / MINUTE;
-
-  // Set the initial timer state
+  const { showNotificationWithSound, soundNotificationTimeoutId } =
+    useNotifications();
 
   const setTime = useCallback(
     (newTime) => {
@@ -40,6 +42,11 @@ const Pomodoro = () => {
 
   // Toggle the timer
   const toggleTimer = () => {
+    if (!isTimerRunning) {
+      showNotificationWithSound("Dingaling", time * 1000);
+    } else {
+      showNotificationWithSound(null, null, true);
+    }
     setisTimerRunning(!isTimerRunning);
   };
 
@@ -94,6 +101,17 @@ const Pomodoro = () => {
     setTime,
   ]);
 
+  useEffect(() => {
+    if (isTimerRunning && time > 0 && !soundNotificationTimeoutId.current) {
+      showNotificationWithSound("Dingaling", time * 1000);
+    }
+  }, [
+    isTimerRunning,
+    showNotificationWithSound,
+    time,
+    soundNotificationTimeoutId,
+  ]);
+
   const setTimeDuration = (newDuration) => {
     isBreakPeriod
       ? setAppState({ breakDuration: newDuration })
@@ -132,6 +150,7 @@ const Pomodoro = () => {
   const renderPomodoroContent = () => {
     return (
       <div>
+        <Button onClick={() => setTime(4)} content={"Debug dingaling"} />
         <h1 className={styles["pomodoro-header"]}>
           {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
           <div className={styles.skipButton}>
