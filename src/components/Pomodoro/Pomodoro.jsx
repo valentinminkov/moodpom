@@ -150,7 +150,6 @@ const Pomodoro = () => {
   const renderPomodoroContent = () => {
     return (
       <div>
-        <Button onClick={() => setTime(4)} content={"Debug dingaling"} />
         <h1 className={styles["pomodoro-header"]}>
           {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
           <div className={styles.skipButton}>
