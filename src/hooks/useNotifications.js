@@ -4,13 +4,17 @@ import dingalingSound from "./dingaling.mp3";
 
 const useNotifications = () => {
   const soundNotificationTimeoutId = useRef(null);
+  const isNotificationSupported = typeof Notification !== "undefined";
+  const [permission, setPermission] = useState(
+    isNotificationSupported ? Notification.permission : "denied"
+  );
   const { playAudio } = useAudioPlayer(dingalingSound);
 
-  const [permission, setPermission] = useState(Notification.permission);
-
   const requestNotificationPermission = useCallback(async () => {
-    setPermission(await Notification.requestPermission());
-  }, []);
+    if (isNotificationSupported) {
+      setPermission(await Notification.requestPermission());
+    }
+  }, [isNotificationSupported]);
 
   useEffect(() => {
     const permissionChangeHandler = () => {
