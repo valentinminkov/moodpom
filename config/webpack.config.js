@@ -411,6 +411,7 @@ module.exports = function (webpackEnv) {
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
                 ),
+                ...require('./babel.config.js'), // Import custom Babel configuration
                 presets: [
                   [
                     require.resolve('babel-preset-react-app'),
