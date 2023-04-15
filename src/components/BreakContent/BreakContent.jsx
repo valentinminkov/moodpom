@@ -6,8 +6,8 @@ import Icon from "../Icon/Icon";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 const BreakContent = ({ className: propClasses }) => {
-  const { appState } = useContext(AppContext);
-  const { isRightOn } = appState;
+  const { appState = {} } = useContext(AppContext) || {};
+  const { isRightOn = false } = appState;
   const { exerciseIndex, exercises, adjustExercise, exercise } = useExercises();
 
   const handleKeyDown = (event) => {

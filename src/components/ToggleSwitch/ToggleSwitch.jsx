@@ -4,8 +4,9 @@ import useExercises from "../../hooks/useExercises";
 import styles from "./ToggleSwitch.module.scss";
 
 function ToggleSwitch() {
-  const { appState, setAppState } = useContext(AppContext);
-  const { isRightOn } = appState;
+  const { appState = {}, setAppState = () => {} } =
+    useContext(AppContext) || {};
+  const { isRightOn = false } = appState;
   const { setDefaultExercise } = useExercises();
 
   function handleToggle() {

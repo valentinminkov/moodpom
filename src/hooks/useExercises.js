@@ -3,8 +3,9 @@ import { AppContext } from "../context/AppContext";
 import { breathingExercises, meditationExercises } from "../dummyData/data";
 
 const useExercises = () => {
-  const { appState, setAppState } = useContext(AppContext);
-  const { isRightOn, exercise } = appState;
+  const { appState = {}, setAppState = () => {} } =
+    useContext(AppContext) || {};
+  const { isRightOn = false, exercise = null } = appState;
   const exercises = isRightOn ? meditationExercises : breathingExercises;
   const exerciseIndex = exercises.findIndex(
     (newExercise) => newExercise.name === exercise?.name

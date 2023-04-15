@@ -11,8 +11,9 @@ function App() {
     requestNotificationPermission,
     openNotificationSettings,
   } = useNotifications();
-  const { appState } = useContext(AppContext);
-  const { isBreakPeriod, isRightOn } = appState;
+  const { appState = {} } = useContext(AppContext) || {};
+
+  const { isBreakPeriod = false, isRightOn = false } = appState;
 
   useEffect(() => {
     if (permission === "default") {

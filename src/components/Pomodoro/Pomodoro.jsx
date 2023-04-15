@@ -17,9 +17,17 @@ import {
 } from "../../constants.js";
 
 const Pomodoro = () => {
-  const { appState, setAppState } = useContext(AppContext);
-  const { isBreakPeriod, workDuration, breakDuration, isTimerRunning, time } =
-    appState;
+  const { appState = {}, setAppState = () => {} } =
+    useContext(AppContext) || {};
+
+  const {
+    isBreakPeriod = false,
+    workDuration = 0,
+    breakDuration = 0,
+    isTimerRunning = false,
+    time = 0,
+  } = appState;
+
   const fullDuration = isBreakPeriod ? breakDuration : workDuration;
   const isFullDuration = fullDuration === time / MINUTE;
   const { showNotificationWithSound, soundNotificationTimeoutId } =
