@@ -6,22 +6,23 @@ import { ReactComponent as SkipIcon } from "./icons/skip.svg";
 import { ReactComponent as LeftIcon } from "./icons/left.svg";
 import { ReactComponent as RightIcon } from "./icons/right.svg";
 
-const IconComponent = ({ icon, className }) => {
-  const testId = `${icon}-icon`;
+const ICONS = {
+  play: PlayIcon,
+  pause: PauseIcon,
+  reset: ResetIcon,
+  skip: SkipIcon,
+  left: LeftIcon,
+  right: RightIcon,
+};
 
-  if (icon === "play") {
-    return <PlayIcon className={className} data-testid={testId}/>;
-  } else if (icon === "pause") {
-    return <PauseIcon className={className} data-testid={testId}/>;
-  } else if (icon === "reset") {
-    return <ResetIcon className={className} data-testid={testId}/>;
-  } else if (icon === "skip") {
-    return <SkipIcon className={className} data-testid={testId}/>;
-  } else if (icon === "left") {
-    return <LeftIcon className={className} data-testid={testId}/>;
-  } else if (icon === "right") {
-    return <RightIcon className={className} data-testid={testId}/>;
+const IconComponent = ({ icon, className }) => {
+  const Icon = ICONS[icon];
+
+  if (Icon) {
+    const testId = `${icon}-icon`;
+    return <Icon className={className} data-testid={testId} />;
   }
+
   return <></>;
 };
 
