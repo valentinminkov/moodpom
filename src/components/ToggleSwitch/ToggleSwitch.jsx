@@ -21,6 +21,7 @@ function ToggleSwitch() {
         isRightOn ? styles.right : styles.left
       }`}
       onClick={handleToggle}
+      role="checkbox"
     >
       <div className={styles.toggleSwitchKnob}></div>
     </div>
