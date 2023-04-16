@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../../context/AppContext";
 import styles from "./BreakContent.module.scss";
 import useExercises from "../../hooks/useExercises";
@@ -10,21 +10,24 @@ const BreakContent = ({ className: propClasses }) => {
   const { isRightOn = false } = appState;
   const { exerciseIndex, exercises, adjustExercise, exercise } = useExercises();
 
-  const handleKeyDown = (event) => {
-    if (event.keyCode === 37) {
-      // Left arrow
-      event.preventDefault();
-      if (exerciseIndex > 0) {
-        adjustExercise();
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event?.keyCode === 37) {
+        // Left arrow
+        event.preventDefault();
+        if (exerciseIndex > 0) {
+          adjustExercise();
+        }
+      } else if (event.keyCode === 39) {
+        // Right arrow
+        event.preventDefault();
+        if (exerciseIndex < exercises.length - 1) {
+          adjustExercise(true);
+        }
       }
-    } else if (event.keyCode === 39) {
-      // Right arrow
-      event.preventDefault();
-      if (exerciseIndex < exercises.length - 1) {
-        adjustExercise(true);
-      }
-    }
-  };
+    },
+    [exerciseIndex, exercises.length, adjustExercise]
+  );
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
