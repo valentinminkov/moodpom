@@ -50,10 +50,12 @@ const Pomodoro = () => {
   );
 
   useEffect(() => {
+    const envFlag = process.env.NODE_ENV === "development" ? "[DEV] " : "";
+
     if (!isTimerRunning) {
-      document.title = APP_TITLE; // default title
+      document.title = `${envFlag}${APP_TITLE}`;
     } else {
-      document.title = `${formatTime(time)}|${
+      document.title = `${envFlag}${formatTime(time)}|${
         isBreakPeriod ? BREAK_LABEL : WORK_LABEL
       } • ${APP_TITLE}`;
     }
