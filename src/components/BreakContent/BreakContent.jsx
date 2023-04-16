@@ -48,25 +48,30 @@ const BreakContent = ({ className: propClasses }) => {
         {exercise && (
           <div className={styles.contentContainer}>
             <div className={styles.headerContainer}>
-              <div>
-                {exerciseIndex > 0 && (
-                  <Icon
-                    icon="left"
-                    className={styles.controlIcon}
-                    onClick={() => adjustExercise()}
-                  />
-                )}
+              <div className={styles.controlContainer}>
+                <div className={styles.iconContainer}>
+                  {exerciseIndex > 0 && (
+                    <Icon
+                      icon="left"
+                      className={styles.controlIcon}
+                      onClick={() => adjustExercise()}
+                    />
+                  )}
+                </div>
+                <h1 className={styles.title}>{exercise.name}</h1>
+                <div className={styles.iconContainer}>
+                  {exerciseIndex < exercises.length - 1 && (
+                    <Icon
+                      icon="right"
+                      className={styles.controlIcon}
+                      onClick={() => adjustExercise(true)}
+                    />
+                  )}
+                </div>
               </div>
-              <h1 className={styles.title}>{exercise.name}</h1>
-              <div>
-                {exerciseIndex < exercises.length - 1 && (
-                  <Icon
-                    icon="right"
-                    className={styles.controlIcon}
-                    onClick={() => adjustExercise(true)}
-                  />
-                )}
-              </div>
+              <p className={styles.optionsContainer}>
+                {exerciseIndex + 1} / {exercises.length}
+              </p>
             </div>
             <p className={styles.paragraph}>{exercise.description}</p>
           </div>
