@@ -5,6 +5,7 @@ import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import useNotifications from "../../hooks/useNotifications";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 import {
   MINUTE,
@@ -28,6 +29,7 @@ const Pomodoro = () => {
     time = 0,
   } = appState;
 
+  const envFlag = process.env.NODE_ENV === "development" ? "[DEV] " : "";
   const fullDuration = isBreakPeriod ? breakDuration : workDuration;
   const isFullDuration = fullDuration === time / MINUTE;
   const { showNotificationWithSound, soundNotificationTimeoutId } =
@@ -49,17 +51,13 @@ const Pomodoro = () => {
     [setAppState]
   );
 
-  useEffect(() => {
-    const envFlag = process.env.NODE_ENV === "development" ? "[DEV] " : "";
-
-    if (!isTimerRunning) {
-      document.title = `${envFlag}${APP_TITLE}`;
-    } else {
-      document.title = `${envFlag}${formatTime(time)}|${
-        isBreakPeriod ? BREAK_LABEL : WORK_LABEL
-      } • ${APP_TITLE}`;
-    }
-  }, [isBreakPeriod, isTimerRunning, time]);
+  useDocumentTitle(
+    isTimerRunning
+      ? formatTime(time) +
+          ` | ${isBreakPeriod ? BREAK_LABEL : WORK_LABEL} • ${APP_TITLE}`
+      : APP_TITLE,
+    envFlag
+  );
 
   // Toggle the timer
   const toggleTimer = () => {
