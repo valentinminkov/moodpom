@@ -7,18 +7,20 @@ import { ReactComponent as LeftIcon } from "./icons/left.svg";
 import { ReactComponent as RightIcon } from "./icons/right.svg";
 
 const IconComponent = ({ icon, className }) => {
+  const testId = `${icon}-icon`;
+
   if (icon === "play") {
-    return <PlayIcon className={className} />;
+    return <PlayIcon className={className} data-testid={testId}/>;
   } else if (icon === "pause") {
-    return <PauseIcon className={className} />;
+    return <PauseIcon className={className} data-testid={testId}/>;
   } else if (icon === "reset") {
-    return <ResetIcon className={className} />;
+    return <ResetIcon className={className} data-testid={testId}/>;
   } else if (icon === "skip") {
-    return <SkipIcon className={className} />;
+    return <SkipIcon className={className} data-testid={testId}/>;
   } else if (icon === "left") {
-    return <LeftIcon className={className} />;
+    return <LeftIcon className={className} data-testid={testId}/>;
   } else if (icon === "right") {
-    return <RightIcon className={className} />;
+    return <RightIcon className={className} data-testid={testId}/>;
   }
   return <></>;
 };
