@@ -10,6 +10,7 @@ const Button = ({
   onClick,
   content,
   className,
+  dataTestId = "",
   theme = BUTTON_THEME.PRIMARY,
 }) => {
   const classes = `${styles.button} ${className ?? ""} ${
@@ -17,7 +18,7 @@ const Button = ({
   }`;
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button data-testid={dataTestId} className={classes} onClick={onClick}>
       {content}
     </button>
   );
