@@ -17,6 +17,15 @@ import {
   APP_TITLE,
 } from "../../constants.js";
 
+// Format the time as a string
+const formatTime = (time) => {
+  const minutes = Math.floor(time / MINUTE);
+  const seconds = time % MINUTE;
+  return `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
+};
+
 const Pomodoro = () => {
   const { appState = {}, setAppState = () => {} } =
     useContext(AppContext) || {};
@@ -137,15 +146,6 @@ const Pomodoro = () => {
       : setAppState({ workDuration: newDuration });
   };
 
-  // Format the time as a string
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / MINUTE);
-    const seconds = time % MINUTE;
-    return `${minutes.toString().padStart(2, "0")}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
   // Decrease work duration by 1 minute
   const decreaseDuration = () => {
     let newDuration = (isBreakPeriod ? breakDuration : workDuration) - 1;
@@ -173,6 +173,7 @@ const Pomodoro = () => {
           {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
           <div className={styles.skipButton}>
             <Button
+              dataTestId="skip"
               onClick={endCycle}
               content={<Icon icon="skip" />}
               theme={BUTTON_THEME.ICON}
@@ -183,6 +184,7 @@ const Pomodoro = () => {
           <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
           <div className={styles.buttonContainer}>
             <Button
+              dataTestId="reset"
               className={`${styles.resetIcon} ${
                 !isFullDuration ? styles.display : ""
               }`}
@@ -192,6 +194,7 @@ const Pomodoro = () => {
             />
 
             <Button
+              dataTestId={isTimerRunning ? "pause" : "play"}
               onClick={toggleTimer}
               content={
                 !isTimerRunning ? <Icon icon="play" /> : <Icon icon="pause" />
@@ -205,6 +208,7 @@ const Pomodoro = () => {
         <div className={styles["duration-input"]}>
           <div className={styles["duration-value"]}>
             <Button
+              dataTestId="decrease"
               onClick={decreaseDuration}
               content="-"
               className={styles["duration-value-button"]}
@@ -213,6 +217,7 @@ const Pomodoro = () => {
             <div>
               <span>{isBreakPeriod ? breakDuration : workDuration}</span>
               <Button
+                dataTestId="increase"
                 onClick={increaseDuration}
                 content="+"
                 className={styles["duration-value-button"]}
