@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/moodpom/static/css/main.f1635819.css",
-    "main.js": "/moodpom/static/js/main.40734509.js",
+    "main.js": "/moodpom/static/js/main.69664fe8.js",
     "static/js/787.9e5b4d3b.chunk.js": "/moodpom/static/js/787.9e5b4d3b.chunk.js",
     "static/media/dingaling.mp3": "/moodpom/static/media/dingaling.f86170f7883f651b889b.mp3",
     "index.html": "/moodpom/index.html",
@@ -12,11 +12,11 @@
     "static/media/right.svg": "/moodpom/static/media/right.d45fd2f46e93f5c3aa0a7d0617d9fecf.svg",
     "static/media/skip.svg": "/moodpom/static/media/skip.fc779f4f3a48f9e76b0838de346e9397.svg",
     "main.f1635819.css.map": "/moodpom/static/css/main.f1635819.css.map",
-    "main.40734509.js.map": "/moodpom/static/js/main.40734509.js.map",
+    "main.69664fe8.js.map": "/moodpom/static/js/main.69664fe8.js.map",
     "787.9e5b4d3b.chunk.js.map": "/moodpom/static/js/787.9e5b4d3b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f1635819.css",
-    "static/js/main.40734509.js"
+    "static/js/main.69664fe8.js"
   ]
 }
