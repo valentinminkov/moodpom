@@ -1,0 +1,2 @@
+!function(){var t=null;self.onmessage=function(e){"start"===e.data.type?t||(t=setInterval((function(){self.postMessage({type:"tick"})}),1e3)):"stop"===e.data.type&&(clearInterval(t),t=null)}}();
+//# sourceMappingURL=timeWorker.1ae58213.worker.js.map
