@@ -1,10 +1,17 @@
-import React, { useEffect, useCallback, useContext, useState } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  useContext,
+  useState,
+  memo,
+} from "react";
 import { convertToMinutes } from "../../utils/general";
 import Icon from "../Icon/Icon";
 import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import useNotifications from "../../hooks/useNotifications";
+// Do not remove!!!
 // eslint-disable-next-line
 import Worker from "worker-loader!../../workers/timeWorker.js";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
@@ -18,7 +25,6 @@ import {
   APP_TITLE,
 } from "../../constants.js";
 
-// Format the time as a string
 const formatTime = (time) => {
   const minutes = Math.floor(time / MINUTE);
   const seconds = time % MINUTE;
@@ -27,6 +33,68 @@ const formatTime = (time) => {
     .padStart(2, "0")}`;
 };
 
+const DurationInput = memo(
+  ({ decreaseDuration, increaseDuration, duration }) => (
+    <div className={styles["duration-input"]}>
+      <div className={styles["duration-value"]}>
+        <Button
+          dataTestId="decrease"
+          onClick={decreaseDuration}
+          content="-"
+          className={styles["duration-value-button"]}
+          theme={BUTTON_THEME.SECONDARY}
+        />
+        <div>
+          <span>{duration}</span>
+          <Button
+            dataTestId="increase"
+            onClick={increaseDuration}
+            content="+"
+            className={styles["duration-value-button"]}
+            theme={BUTTON_THEME.SECONDARY}
+          />
+        </div>
+      </div>
+    </div>
+  )
+);
+
+const TimerButtons = memo(
+  ({ isTimerRunning, toggleTimer, resetTimer, isFullDuration }) => (
+    <div className={styles.buttonContainer}>
+      <Button
+        dataTestId="reset"
+        className={`${styles.resetIcon} ${
+          !isFullDuration ? styles.display : ""
+        }`}
+        onClick={resetTimer}
+        content={<Icon icon="reset" />}
+        theme={BUTTON_THEME.ICON}
+      />
+      <Button
+        dataTestId={isTimerRunning ? "pause" : "play"}
+        onClick={toggleTimer}
+        content={!isTimerRunning ? <Icon icon="play" /> : <Icon icon="pause" />}
+        className={styles.playPauseIcon}
+        theme={BUTTON_THEME.ICON}
+      />
+    </div>
+  )
+);
+
+const PomodoroHeader = memo(({ isBreakPeriod, endCycle }) => (
+  <h1 className={styles["pomodoro-header"]}>
+    {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
+    <div className={styles.skipButton}>
+      <Button
+        dataTestId="skip"
+        onClick={endCycle}
+        content={<Icon icon="skip" />}
+        theme={BUTTON_THEME.ICON}
+      />
+    </div>
+  </h1>
+));
 const Pomodoro = () => {
   const { appState = {}, setAppState = () => {} } =
     useContext(AppContext) || {};
@@ -141,26 +209,6 @@ const Pomodoro = () => {
     };
   }, [worker, isTimerRunning, time, setTime, endCycle]);
 
-  // Start/stop worker based on the timer running state
-  if (worker) {
-    if (isTimerRunning) {
-      worker.postMessage({ type: "start" });
-    } else {
-      worker.postMessage({ type: "stop" });
-    }
-  }
-
-  useEffect(() => {
-    if (isTimerRunning && time > 0 && !soundNotificationTimeoutId.current) {
-      showNotificationWithSound("Dingaling", time * 1000);
-    }
-  }, [
-    isTimerRunning,
-    showNotificationWithSound,
-    time,
-    soundNotificationTimeoutId,
-  ]);
-
   const setTimeDuration = (newDuration) => {
     isBreakPeriod
       ? setAppState({ breakDuration: newDuration })
@@ -187,85 +235,16 @@ const Pomodoro = () => {
     onSetTime(newDuration);
   };
 
-  const renderPomodoroContent = useCallback(() => {
-    return (
-      <div>
-        <h1 className={styles["pomodoro-header"]}>
-          {isBreakPeriod ? BREAK_LABEL : WORK_LABEL}
-          <div className={styles.skipButton}>
-            <Button
-              dataTestId="skip"
-              onClick={endCycle}
-              content={<Icon icon="skip" />}
-              theme={BUTTON_THEME.ICON}
-            />
-          </div>
-        </h1>
-        <div className={styles.timerContainer}>
-          <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
-          <div className={styles.buttonContainer}>
-            <Button
-              dataTestId="reset"
-              className={`${styles.resetIcon} ${
-                !isFullDuration ? styles.display : ""
-              }`}
-              onClick={resetTimer}
-              content={<Icon icon="reset" />}
-              theme={BUTTON_THEME.ICON}
-            />
-
-            <Button
-              dataTestId={isTimerRunning ? "pause" : "play"}
-              onClick={toggleTimer}
-              content={
-                !isTimerRunning ? <Icon icon="play" /> : <Icon icon="pause" />
-              }
-              className={styles.playPauseIcon}
-              theme={BUTTON_THEME.ICON}
-            />
-          </div>
-        </div>
-
-        <div className={styles["duration-input"]}>
-          <div className={styles["duration-value"]}>
-            <Button
-              dataTestId="decrease"
-              onClick={decreaseDuration}
-              content="-"
-              className={styles["duration-value-button"]}
-              theme={BUTTON_THEME.SECONDARY}
-            />
-            <div>
-              <span>{isBreakPeriod ? breakDuration : workDuration}</span>
-              <Button
-                dataTestId="increase"
-                onClick={increaseDuration}
-                content="+"
-                className={styles["duration-value-button"]}
-                theme={BUTTON_THEME.SECONDARY}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }, [
-    isBreakPeriod,
-    BREAK_LABEL,
-    WORK_LABEL,
-    endCycle,
-    time,
-    formatTime,
-    resetTimer,
-    isFullDuration,
-    isTimerRunning,
-    toggleTimer,
-    breakDuration,
-    workDuration,
-    decreaseDuration,
-    increaseDuration,
-    styles,
-  ]);
+  // Start/stop worker based on the timer running state
+  useEffect(() => {
+    if (worker) {
+      if (isTimerRunning) {
+        worker.postMessage({ type: "start" });
+      } else {
+        worker.postMessage({ type: "stop" });
+      }
+    }
+  }, [worker, isTimerRunning]);
 
   return (
     <div
@@ -275,7 +254,21 @@ const Pomodoro = () => {
           : `${styles["pomodoro-work-background"]}`
       }`}
     >
-      {renderPomodoroContent()}
+      <PomodoroHeader isBreakPeriod={isBreakPeriod} endCycle={endCycle} />
+      <div className={styles.timerContainer}>
+        <p className={styles["pomodoro-time"]}>{formatTime(time)}</p>
+        <TimerButtons
+          isTimerRunning={isTimerRunning}
+          toggleTimer={toggleTimer}
+          resetTimer={resetTimer}
+          isFullDuration={isFullDuration}
+        />
+      </div>
+      <DurationInput
+        decreaseDuration={decreaseDuration}
+        increaseDuration={increaseDuration}
+        duration={isBreakPeriod ? breakDuration : workDuration}
+      />
     </div>
   );
 };
