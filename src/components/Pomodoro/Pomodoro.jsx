@@ -187,7 +187,7 @@ const Pomodoro = () => {
     onSetTime(newDuration);
   };
 
-  const renderPomodoroContent = () => {
+  const renderPomodoroContent = useCallback(() => {
     return (
       <div>
         <h1 className={styles["pomodoro-header"]}>
@@ -249,7 +249,23 @@ const Pomodoro = () => {
         </div>
       </div>
     );
-  };
+  }, [
+    isBreakPeriod,
+    BREAK_LABEL,
+    WORK_LABEL,
+    endCycle,
+    time,
+    formatTime,
+    resetTimer,
+    isFullDuration,
+    isTimerRunning,
+    toggleTimer,
+    breakDuration,
+    workDuration,
+    decreaseDuration,
+    increaseDuration,
+    styles,
+  ]);
 
   return (
     <div
