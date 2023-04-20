@@ -1,15 +1,15 @@
-import React, { useEffect, useCallback, useContext } from "react";
+import React, { useEffect, useCallback, useContext, useState } from "react";
 import { convertToMinutes } from "../../utils/general";
 import Icon from "../Icon/Icon";
 import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import useNotifications from "../../hooks/useNotifications";
+import Worker from "worker-loader!../../workers/timeWorker";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 import {
   MINUTE,
-  SECOND,
   MIN_WORK_DURATION,
   MAX_WORK_DURATION,
   BREAK_LABEL,
@@ -37,6 +37,8 @@ const Pomodoro = () => {
     isTimerRunning = false,
     time = 0,
   } = appState;
+
+  const [worker, setWorker] = useState(null);
 
   const envFlag = process.env.NODE_ENV === "development" ? "[DEV] " : "";
   const fullDuration = isBreakPeriod ? breakDuration : workDuration;
@@ -107,27 +109,47 @@ const Pomodoro = () => {
     onSetTime,
   ]);
 
-  // Update the time every second
+  // Setup worker
   useEffect(() => {
-    let timer;
-    if (isTimerRunning && time > 0) {
-      timer = setTimeout(() => {
-        setTime(time - 1);
-      }, SECOND);
-    } else if (isTimerRunning || time === 0) {
-      endCycle();
+    const timerWorker = new Worker(
+      `${process.env.PUBLIC_URL}/workers/timeWorker.js`
+    );
+    setWorker(timerWorker);
+
+    return () => {
+      timerWorker.terminate();
+    };
+  }, []);
+
+  // Timer tick listener
+  useEffect(() => {
+    if (worker) {
+      const handleTick = (event) => {
+        if (event.data.type === "tick" && isTimerRunning && time > 0) {
+          setTime(time - 1);
+        } else if (isTimerRunning || time === 0) {
+          endCycle();
+        }
+      };
+
+      worker.onmessage = handleTick;
     }
-    return () => clearTimeout(timer);
-  }, [
-    isTimerRunning,
-    time,
-    isBreakPeriod,
-    breakDuration,
-    workDuration,
-    onSetTime,
-    endCycle,
-    setTime,
-  ]);
+
+    return () => {
+      if (worker) {
+        worker.onmessage = null;
+      }
+    };
+  }, [worker, isTimerRunning, time, setTime, endCycle]);
+
+  // Start/stop worker based on the timer running state
+  if (worker) {
+    if (isTimerRunning) {
+      worker.postMessage({ type: "start" });
+    } else {
+      worker.postMessage({ type: "stop" });
+    }
+  }
 
   useEffect(() => {
     if (isTimerRunning && time > 0 && !soundNotificationTimeoutId.current) {
