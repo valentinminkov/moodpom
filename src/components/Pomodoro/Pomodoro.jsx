@@ -5,7 +5,8 @@ import styles from "./Pomodoro.module.scss";
 import Button, { BUTTON_THEME } from "../Button/Button";
 import { AppContext } from "../../context/AppContext";
 import useNotifications from "../../hooks/useNotifications";
-import Worker from "worker-loader!../../workers/timeWorker";
+// eslint-disable-next-line
+import Worker from "worker-loader!../../workers/timeWorker.js";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 import {
@@ -111,9 +112,7 @@ const Pomodoro = () => {
 
   // Setup worker
   useEffect(() => {
-    const timerWorker = new Worker(
-      `${process.env.PUBLIC_URL}/workers/timeWorker.js`
-    );
+    const timerWorker = new Worker(`../../workers/timeWorker.js`);
     setWorker(timerWorker);
 
     return () => {

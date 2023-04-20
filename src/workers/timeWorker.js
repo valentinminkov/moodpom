@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 let timerId = null;
 
 self.onmessage = (event) => {
