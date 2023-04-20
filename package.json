@@ -92,7 +92,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "gh-pages": "^5.0.0"
+    "gh-pages": "^5.0.0",
+    "worker-loader": "^3.0.8"
   },
   "jest": {
     "roots": [
@@ -125,7 +126,8 @@
     "modulePaths": [],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "worker-loader!(.*)": "<rootDir>/src/__mocks__/workerMock.js"
     },
     "moduleFileExtensions": [
       "web.js",
